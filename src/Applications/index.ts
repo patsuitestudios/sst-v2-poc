@@ -15,5 +15,7 @@ export const stacks = async (app: App) => {
         },
     });
 
-    app.stack(Links);
+    app.stack(Links, {
+        crossRegionReferences,
+    });
 };

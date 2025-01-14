@@ -1,4 +1,4 @@
-import { Table } from 'sst/node/table';
+import * as SstTable from 'sst/node/table';
 
 class TestBinding<TResource> {
     #bindings: Partial<TResource> = {};
@@ -13,16 +13,6 @@ class TestBinding<TResource> {
 
     public clear = () => (this.#bindings = {});
 }
-
-export const testBindings = {
-    table: new TestBinding<typeof Table>(),
-};
-
-export const clearAllTestBindings = () => {
-    for (const binding of Object.values(testBindings)) {
-        binding.clear();
-    }
-};
 
 const buildBindingProxy = <TResource>(testBinding: TestBinding<TResource>) =>
     new Proxy(
@@ -42,6 +32,16 @@ const buildBindingProxy = <TResource>(testBinding: TestBinding<TResource>) =>
             },
         }
     );
+
+export const clearAllTestBindings = () => {
+    for (const binding of Object.values(testBindings)) {
+        binding.clear();
+    }
+};
+
+export const testBindings = {
+    table: new TestBinding<(typeof SstTable)['Table']>(),
+};
 
 export const testBindingProxies = {
     table: { Table: buildBindingProxy(testBindings.table) },

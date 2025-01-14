@@ -1,7 +1,7 @@
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
 import { APIGatewayProxyStructuredResultV2 } from 'aws-lambda/trigger/api-gateway-proxy';
 
-import { linkDataGateway } from './linkDataGateway';
+import { linkDataGateway } from '../linkDataGateway';
 
 export const listLinks = async (): Promise<APIGatewayProxyStructuredResultV2> => {
     try {
